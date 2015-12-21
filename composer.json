@@ -1,0 +1,20 @@
+{
+  "name": "mnabialek/laravel-multi-config",
+  "description": "Allow to use multiple config directories for environments",
+  "require": {
+    "laravel/framework": "5.*"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "mnabialek",
+      "email": "gitre@nabialek.org"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Mnabialek\\LaravelMultiConfig\\": "src/"
+    }
+  },
+  "minimum-stability": "dev"
+}
