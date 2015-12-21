@@ -13,6 +13,17 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        // TODO: Implement register() method.
+        // create singleton so we can use it anywhere
+        $this->app->singleton(MultiConfig::class, function ($app) {
+            return new MultiConfig($app);
+        });
+
+        /** @var MultiConfig $multiConfig */
+        $multiConfig = $this->app->make(MultiConfig::class);
+
+        // publish default config into valid file
+        $this->publishes([
+            $multiConfig->getDefaultConfigFilePath() => $multiConfig->getConfigFilePath(),
+        ]);
     }
 }
