@@ -23,8 +23,12 @@ class DetectEnvironment extends BaseDetectEnvironment
             } elseif ($multiConfig->get('env_mode') == 'host') {
                 // if host mode is used, we get environment name directly
                 // from host name - if it's not set we use defaults
-                $env = str_replace(':', '', $app->request->server('HTTP_HOST',
-                    $multiConfig->get('no_host_default_environment')));
+                $env = null;
+                if (!$app->runningInConsole()) {
+                    $env = $app->request->server('HTTP_HOST', null);
+                }
+                $env = str_replace(':', '', $env ?:
+                    $multiConfig->get('no_host_default_environment'));
             }
         }
 
@@ -41,7 +45,7 @@ class DetectEnvironment extends BaseDetectEnvironment
             DIRECTORY_SEPARATOR .
             $envFileName)
         ) {
-            exit('File ' . $envFileName . ' does not exist');
+            exit("File {$envFileName} does not exist\n");
         }
 
         // here we finally set valid environment - based on env_mode and 
@@ -51,7 +55,7 @@ class DetectEnvironment extends BaseDetectEnvironment
         // we make sure that current environment is same as APP_ENV in
         // environment env file to prevent any issues
         if ($app->environment() != env('APP_ENV')) {
-            exit('ENV mismatch ' . $env . ' vs ' . env('APP_ENV'));
+            exit("ENV mismatch {$env} vs " . env('APP_ENV') . "\n");
         }
     }
 }
