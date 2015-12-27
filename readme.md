@@ -46,13 +46,13 @@ as new class method
 
 4) Open `app/Console/Kernel.php` and to the same as in step 3
 
-5) Open `config/app.php` and add add `Mnabialek\LaravelMultiConfig\ServiceProvider::class,`
+5) Open `config/app.php` and add add `Mnabialek\LaravelMultiConfig\MultiConfigServiceProvider::class,`
  
  into `providers` section
  
 6) Run
 
-`php artisan vendor:publish --provider=Mnabialek\\LaravelMultiConfig\\ServiceProvider`
+`php artisan vendor:publish --provider=Mnabialek\\LaravelMultiConfig\\MultiConfigServiceProvider`
 
 to publish module configuration file.
 

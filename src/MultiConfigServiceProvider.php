@@ -4,7 +4,7 @@ namespace Mnabialek\LaravelMultiConfig;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-class ServiceProvider extends BaseServiceProvider
+class MultiConfigServiceProvider extends BaseServiceProvider
 {
     /**
      * Register the service provider.
