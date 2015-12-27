@@ -63,24 +63,22 @@ class MultiConfig
     }
 
     /**
-     * Load module configuration - if configuration is published we will use
-     * user configuration file, otherwise we will use default module
-     * configuration
+     * Load module configuration - we merge here any published configuration
+     * with module default configuration file
      */
     protected function loadConfiguration()
     {
         // get user configuration file
+        $userConfig = [];
         $path = $this->getConfigFilePath();
         if (file_exists($path)) {
-            $this->config = require $path;
-
-            return;
+            $userConfig = require $path;
         }
 
-        // user configuration file does not exists - use defaults
-        $path = $this->getDefaultConfigFilePath();
-        if (file_exists($path)) {
-            $this->config = require $path;
-        }
+        // module default configuration
+        $config = require $this->getDefaultConfigFilePath();
+
+        // merge user and default configuration
+        $this->config = array_replace_recursive($config, $userConfig);
     }
 }
