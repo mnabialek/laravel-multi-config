@@ -40,13 +40,14 @@ return [
         // this configuration file and you will set this for all environments
         // on this server
         config_path('server'),
+        // if you need you can add here also extra folders
     ],
 
     /**
      * Custom paths
      */
     'paths' => [
-        // path for environments .env files
+        // path for extra environments .env files
         'env_folder' => base_path(),
         // path for environments config
         'env_config_folder' => config_path(),
@@ -59,4 +60,49 @@ return [
      * else if you really know what are you doing
      */
     'no_host_default_environment' => 'testing',
+
+    /**
+     * Extra settings for loading custom env file for environment
+     */
+    'env_settings' => [
+        /**
+         * Load extra .env file for environment
+         */
+        'load_env_file' => true,
+
+        /**
+         * Here you might specify custom env files for environments example
+         * 'domain1.com' => '.domain5.com.env' - by default if it's not
+         * specified here '.domain1.com.env' will be used
+         */
+        'environment_files' => [],
+
+        /**
+         * If no env file exists for current environment (and load_env_file
+         * is set to true) - what should be done - if it's null application
+         * will stop with info that env file is missing, but you can also
+         * put here default env file you would like to use in this case
+         */
+        'fallback_environment' => null,
+
+        /**
+         * Whether env mismatch should be verified. By default (when it's set
+         * to true) in case for current environment custom env file is loaded
+         * APP_ENV should be set to the same as current environment name. If
+         * it's mot, application is stopped with ENV mismatch info. However in
+         * some cases you might want to ignore this (change it only if you
+         * really know what you are doing)
+         */
+        'verify_env_mismatch' => true,
+
+        /**
+         * If we set verify_env_mismatch to false, it might be useful to hold
+         * calculated environment name somewhere. The whole application would
+         * use APP_ENV from env file but what if somewhere in app we would like
+         * to verify this and take some actions based on that? Here we can set
+         * env name where we store calculated environment name. If set to
+         * false/null it won't be set
+         */
+        'real_app_env' => 'REAL_APP_ENV',
+    ],
 ];
