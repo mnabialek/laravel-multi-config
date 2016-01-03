@@ -11,8 +11,6 @@ class DetectEnvironment extends BaseDetectEnvironment
 {
     public function bootstrap(Application $app)
     {
-        $env = null;
-
         $multiConfig = $app->make(MultiConfig::class);
         if (!env('APP_ENV')) {
             if ($multiConfig->get('env_mode') == 'env') {
@@ -31,6 +29,8 @@ class DetectEnvironment extends BaseDetectEnvironment
                 $env = str_replace(':', '', $env ?:
                     $multiConfig->get('no_host_default_environment'));
             }
+        } else {
+            $env = env('APP_ENV');
         }
 
         // force Laravel to detect environment and include console arguments
